@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML 5 Web Storage</title>
+
+<link href="reset.css" type="text/css" rel="stylesheet" />
+
+<link href="webStorage_Style.css" type="text/css" rel="stylesheet" />
+
+<script>
+window.addEventListener("load",init);
+
+function init(){
+	if(typeof(Storage)!=="undefined"){
+	
+	display();
+	
+	var button=document.getElementById("button");
+	button.addEventListener("click",saveInfo);
+	}
+	
+	else{
+	//old browser	
+	}
+}
+
+function saveInfo(){
+	var nick=document.getElementById("nickname").value;
+	var doname=document.getElementById("donutname").value;
+	var topp=document.getElementById("topping").value;
+	var sprink1=document.getElementById("sprinklesy").value;
+	var sprink2=document.getElementById("sprinklesn").value;
+	var spec=document.getElementById("special").value;
+	var sprinktext = "";
+	if (sprink1 == "on"){
+		sprinktext = "yes";
+	}
+	else if (sprink2 == "on"){
+		sprinktext = "no";
+	}
+	
+	localStorage.setItem("nickname",nick);
+	localStorage.setItem("donutname",doname);
+	localStorage.setItem("topping",topp);
+	localStorage.setItem("sprinkles",sprinktext);
+	localStorage.setItem("special",spec);
+	
+	display();
+	
+}
+
+function display(){
+	var rightBox=document.getElementById("useroutput");
+	var nickname=localStorage.getItem("nickname");
+	var donutname=localStorage.getItem("donutname");
+	var topping=localStorage.getItem("topping");
+	var sprinkles=localStorage.getItem("sprinkles");
+	var specInstr=localStorage.getItem("special");
+	
+	if(nickname==undefined){
+		document.getElementById("useroutput").innerHTML="";
+	}
+	else{ document.getElementById("useroutput").innerHTML="OUTPUT  <hr /><img id=\"donutpic\" src=" + "\"Donut-clipart-2_clipartpost.jpg\"" + " /><br /><br />Your Nickname: "+nickname+"<br /><br />  Your donut: "+donutname+"<br />  Your topping: "+topping+"<br />  With sprinkles: "+sprinkles+"<br />Special Instructions: <br />"+specInstr;
+	}
+	
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="main">
+	<section id="userinput">
+    INPUT <br>
+	<hr />
+    <br /><br />
+    <form>
+    
+    <div>Your Nickname: <br /><input type="input" id="nickname" size="20"></div>
+    <br />
+    <div>Donut Name: <br /><input type="input" id="donutname" size="20"></div>
+    <br />
+    <div>Topping: <br /><input type="input" id="topping" size="20"></div>
+    <br />
+	<div>
+	<label id="sprinkles">With Sprinkles?</label>
+	<label id="sprlaby">Yes</label>
+    <input type="radio" id="sprinklesy" name="sprradio1">
+	<label id="sprlabn">No</label>
+    <input type="radio" id="sprinklesn" name="sprradio2">
+	</div>
+    <br />
+    <div>Special Instructions:<br /> <textarea id="special" rows="3"></textarea></div>
+    <br />
+     <div><input type="button" id="button" value="Save"></div>
+    
+    </form>
+    </section>
+    
+    
+    <section id="useroutput">
+ OUTPUT  
+ 	<hr />
+    <br /><br />
+    </section>
+
+</div>
+
+</body>
+</html>
